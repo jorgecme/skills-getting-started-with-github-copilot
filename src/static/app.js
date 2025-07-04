@@ -20,27 +20,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Create participants list HTML
-        let participantsHTML = '';
-        if (details.participants.length > 0) {
-          const participantsList = details.participants
-            .map(participant => `<li>${participant}</li>`)
-            .join('');
-          participantsHTML = `
-            <div class="participants-section">
-              <h5>Current Participants:</h5>
-              <ul class="participants-list">
-                ${participantsList}
-              </ul>
-            </div>
-          `;
-        } else {
-          participantsHTML = `
-            <div class="participants-section">
-              <h5>Current Participants:</h5>
-              <p class="no-participants">No participants yet - be the first to sign up!</p>
-            </div>
-          `;
+        // Create participants list HTML using helper function
+        const participantsHTML = generateParticipantsHTML(details.participants);
+
+        // Helper function to generate participants HTML
+        function generateParticipantsHTML(participants) {
+          if (participants.length > 0) {
+            const participantsList = participants
+              .map(participant => `<li>${participant}</li>`)
+              .join('');
+            return `
+              <div class="participants-section">
+                <h5>Current Participants:</h5>
+                <ul class="participants-list">
+                  ${participantsList}
+                </ul>
+              </div>
+            `;
+          } else {
+            return `
+              <div class="participants-section">
+                <h5>Current Participants:</h5>
+                <p class="no-participants">No participants yet - be the first to sign up!</p>
+              </div>
+            `;
+          }
         }
 
         activityCard.innerHTML = `
